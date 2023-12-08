@@ -1,15 +1,33 @@
-require('dotenv').config()
+import "./config"
 import express from "express";
-import router from "./routes/apiRoutes";
-import mongoose from "mongoose";
+import router from "./routes/apartmentRoute";
+import routerPayment from "./routes/paymentRoute";
+import routerUser from "./routes/userRoute";
+
 const app = express();
 
-mongoose.connect(process.env.DATABASE_URL,{useNewUrlParser:true})
-const db = mongoose.connection
-db.on('error',(error)=>console.error(error))
-db.once('open',()=>console.error('Connected to Database'))
+const bodyParser = require('body-parser');
+ 
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+
+const cors = require('cors');
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+}));
 app.use(express.json())
-app.use("/", router)
+
+app.use("/apartment", router)
+app.use("/payment", routerPayment)
+app.use("/users", routerUser)
 
 
-export default app;
+
+
+
+
+export default app
+
+
+ 
