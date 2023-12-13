@@ -9,9 +9,9 @@ export const apartmentController = {
       if (!(number && etage && resident )) {
         return res.status(400).json({ error: 'Please provide all required fields' });
       }
-      
+
   
-      const newApartment = new Apartment({ number, etage, resident});
+      const newApartment = new Apartment({ number, etage, resident });
       const savedApartment = await newApartment.save();
   
       res.status(201).json({
