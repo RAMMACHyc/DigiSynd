@@ -11,9 +11,9 @@ const User = require('../models/User');
 */
 
 const registerSyndic = asyncHandler(async (req, res) => {
-  const { firstName, lastName, email, password, phone, payment } = req.body;
+  const { firstName, lastName, email, password, phone, fixedAmount } = req.body;
 
-  if (!firstName || !lastName || !email || !password || !phone || !payment) {
+  if (!firstName || !lastName || !email || !password || !phone || !fixedAmount) {
     res.status(StatusCodes.BAD_REQUEST).json({ error: 'Please provide all fields' });
     return;
   }  
@@ -34,7 +34,7 @@ const registerSyndic = asyncHandler(async (req, res) => {
     email: email.toLowerCase(),
     password: hashedPassword,
     phone,
-    payment,
+    fixedAmount,
   });
 
   if (user) {
@@ -44,7 +44,7 @@ const registerSyndic = asyncHandler(async (req, res) => {
       lastName: user.lastName,
       email: user.email,
       phone: user.phone,
-      payment: user.payment,
+      fixedAmount: user.fixedAmount,
       role: user.role,
       token: generateToken(user._id),
     });
@@ -72,7 +72,7 @@ const loginUser = asyncHandler(async (req, res) => {
       lastName: user.lastName,
       email: user.email,
       phone: user.phone,
-      payment: user.payment,
+      fixedAmount: user.fixedAmount,
 
       token: generateToken(user._id),
     });
