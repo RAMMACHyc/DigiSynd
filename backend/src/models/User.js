@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema(
       required: true,
     },
 
-    payment: {
+    fixedAmount: {
         type: Number,
         required: true
     },

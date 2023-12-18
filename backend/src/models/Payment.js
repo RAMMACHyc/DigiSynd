@@ -3,20 +3,32 @@ import { Schema, model } from 'mongoose';
 
 const paymentSchema = new Schema({
 
-  createdAt: { 
-    type: Date,
-    default: new Date(),
-},
+    month: {
+        type: String,
+        required: true,
+        enum: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
 
-// apartment: {
-//     type: Schema.Types.ObjectId,
-//     ref: 'Apartment'
-// },
-//     user: {
-//         type: Schema.Types.ObjectId,
-//         ref: 'User'
-//     },
+    year: {
+        type: Number,
+        required: true
+    },
 
+    // ownerId: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User', 
+    //   },
+
+    apartment: {
+        type: Schema.Types.ObjectId,
+        ref: 'Apartment',
+    },
+
+      
+    paymentDate: {
+        type: Date,
+        default: Date.now
+    }
 
 
 });
