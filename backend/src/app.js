@@ -4,6 +4,7 @@ import router from "./routes/apartmentRoute";
 import routerPayment from "./routes/paymentRoute";
 import routerUser from "./routes/userRoute";
 
+
 const app = express();
 
 const bodyParser = require('body-parser');
@@ -13,17 +14,12 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 const cors = require('cors');
 
-app.use(cors({
-  origin: 'http://localhost:5173',
-}));
+app.use(cors());
 app.use(express.json())
 
 app.use("/apartment", router)
-app.use("/payment", routerPayment)
-app.use("/users", routerUser)
-
-
-
+app.use("/payment", routerPayment) 
+app.use("/user", routerUser)
 
 
 
