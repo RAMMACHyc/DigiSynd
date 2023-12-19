@@ -1,17 +1,18 @@
 import Apartment from "../models/Apartment";
 import Payment from "../models/Payment";
 export const apartmentController = {
+  
 
   createApartment: async (req, res) => {
     try {
-      const { number, etage, resident} = req.body;
+      const { number, etage, resident, tel} = req.body;
   
-      if (!(number && etage && resident )) {
+      if (!(number && etage && resident && tel  )) {
         return res.status(400).json({ error: 'Please provide all required fields' });
       }
 
   
-      const newApartment = new Apartment({ number, etage, resident });
+      const newApartment = new Apartment({ number, etage, resident , tel });
       const savedApartment = await newApartment.save();
   
       res.status(201).json({
@@ -24,18 +25,6 @@ export const apartmentController = {
     }
   },
   
-
-  // getApartments: async (req, res) => {
-  //   try {
-  //     const Apartments = await Apartment.find();
-  //     res.status(200).json({ Apartments });
-  //   } catch (error) {
-  //     console.error(error);
-  //     res.status(500).json({ error: 'Internal server error' });
-  //   }
-  // }, 
-
-
 
 
   getApartments : async (req, res) => {
@@ -67,13 +56,13 @@ export const apartmentController = {
 updateApartment: async (req, res) => {
     try {
       const { id } = req.params;
-      const { number, etage, resident} = req.body;
+      const { number, etage, resident, tel} = req.body;
 
-      if (!(number && etage && resident )) {
+      if (!(number && etage && resident && tel )) {
         return res.status(400).json({ error: 'Please provide all required fields' });
       }
 
-      const updatedApartment = await Apartment.findByIdAndUpdate(id,{ number, etage, resident },{ new: true });
+      const updatedApartment = await Apartment.findByIdAndUpdate(id,{ number, etage, resident, tel },{ new: true });
 
       res.status(200).json({
         message: 'Apartment updated successfully',
