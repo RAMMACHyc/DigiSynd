@@ -9,6 +9,7 @@ const router = Router();
 
 router.post("/",  paymentController.createPayment);
 router.put("/:id",protect,paymentController.updatePayment);
+router.delete("/:id", paymentController.deletePayment);
 // router.get("/",protect, paymentController.getPayments);
 router.get("/", paymentController.getPaymentStatus);
 
