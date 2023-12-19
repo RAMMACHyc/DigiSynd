@@ -47,27 +47,37 @@ export const paymentController = {
     }
   },
 
-  getPaymentStatus: async (req, res) => {
+  // getPaymentStatus: async (req, res) => {
+  //   try {
+  //     const { year, month } = req.query;
+  //     const apartments = await Apartment.find().exec();
+  
+  //     const StatusArray = [];
+  
+  //     for (const apartment of apartments) {
+  //       const payments = await Payment.find({ apartment: apartment._id, year, month }).exec();
+  //       const paymentStatus = payments.length > 0;
+  //       StatusArray.push({ apartmentId: apartment._id, paymentStatus });
+  //     }
+  
+  //     res.status(200).json({ StatusArray });
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).json({
+  //       error: 'Internal server error',
+  //     });
+  //   }
+  // }
+
+  getPaymentStatus : async (req, res) => {
     try {
-      const { year, month } = req.query;
-      const apartments = await Apartment.find().exec();
-  
-      const StatusArray = [];
-  
-      for (const apartment of apartments) {
-        const payments = await Payment.find({ apartment: apartment._id, year, month }).exec();
-        const paymentStatus = payments.length > 0;
-        StatusArray.push({ apartmentId: apartment._id, paymentStatus });
-      }
-  
-      res.status(200).json({ StatusArray });
+      const payments = await Payment.find().populate('apartment').lean();
+      res.status(200).json({ Payments: payments });
     } catch (error) {
       console.error(error);
-      res.status(500).json({
-        error: 'Internal server error',
-      });
+      res.status(500).json({ error: 'Internal server error' });
     }
-  }
+  },
   
 };
   
