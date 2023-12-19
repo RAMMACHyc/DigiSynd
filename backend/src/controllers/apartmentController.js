@@ -14,7 +14,7 @@ export const apartmentController = {
   
       const newApartment = new Apartment({ number, etage, resident , tel });
       const savedApartment = await newApartment.save();
-  
+     
       res.status(201).json({
         message: 'Apartment created successfully',
         Apartment: savedApartment,
@@ -27,7 +27,7 @@ export const apartmentController = {
   
 
 
-  getApartments : async (req, res) => {
+  getApartments: async (req, res) => {
     try {
       const { year, month } = req.query;
       const apartments = await Apartment.find().lean();
@@ -36,19 +36,20 @@ export const apartmentController = {
         map[payment.apartment.toString()] = payment;
         return map;
       }, {});
-  
+
       const apartmentsStatus = apartments.map(apartment => ({
         ...apartment,
         paymentStatus: paymentMap[apartment._id.toString()] ? 'Paid' : 'Not Paid',
+        paymentId: paymentMap[apartment._id.toString()] ? paymentMap[apartment._id.toString()]._id : null,
       }));
-  
+
       res.status(200).json({ Apartments: apartmentsStatus });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal server error' });
     }
   },
-  
+
 
   
 
