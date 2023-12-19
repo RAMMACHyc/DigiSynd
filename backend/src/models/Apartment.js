@@ -19,10 +19,29 @@ const ApartmentSchema = new mongoose.Schema({
         message: "please enter a non-empty resident"
       }
     },
+    tel: {
+      type: Number,
+      required: [true, "please enter tel"],
+      validate: {
+        validator: function (value) {
+          return value > 0; 
+        },
+        message: "please enter a positive tel"
+      }
+    },
+
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    
     createdDate: {
         type: Date,
         default: Date.now
       }
+
+      
       
 
 })
