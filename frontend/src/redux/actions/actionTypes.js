@@ -1,0 +1,14 @@
+export const GET_APARTMENTS = 'GET_APARTMENTS';
+export const ADD_APARTMENT = 'ADD_APARTMENT';
+export const UPDATE_APARTMENT = 'UPDATE_APARTMENT';
+export const DELETE_APARTMENT = 'DELETE_APARTMENT';
+export const AUTH = 'AUTH';
+export const LOGOUT = 'LOGOUT';
+export const GET_PAYMENTS = 'GET_PAYMENTS';
+export const ADD_PAYMENT = 'ADD_PAYMENT';
+export const DELETE_PAYMENT = 'DELETE_PAYMENT';
+export const SELECT_APARTMENT = 'SELECT_APARTMENT';
+
+
+
+ 
