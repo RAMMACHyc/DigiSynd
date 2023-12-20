@@ -13,7 +13,7 @@ router.delete("/:id", paymentController.deletePayment);
 // router.get("/",protect, paymentController.getPayments);
 router.get("/", paymentController.getPaymentStatus);
 
-
+ 
 
 
 export default router; 

@@ -2,17 +2,17 @@ import Apartment from "../models/Apartment";
 import Payment from "../models/Payment";
 export const apartmentController = {
   
-
+ 
   createApartment: async (req, res) => {
     try {
-      const { number, etage, resident, tel} = req.body;
+      const { number, etage, resident, tel,owner} = req.body;
   
-      if (!(number && etage && resident && tel  )) {
+      if (!(number && etage && resident && tel && owner )) {
         return res.status(400).json({ error: 'Please provide all required fields' });
       }
 
   
-      const newApartment = new Apartment({ number, etage, resident , tel });
+      const newApartment = new Apartment({ number, etage, resident , tel,owner });
       const savedApartment = await newApartment.save();
      
       res.status(201).json({
@@ -29,13 +29,14 @@ export const apartmentController = {
 
   getApartments: async (req, res) => {
     try {
-      const { year, month } = req.query;
-      const apartments = await Apartment.find().lean();
+      const { year, month ,owner} = req.query;
+
+      const apartments = await Apartment.find({owner:owner}).lean();
       const payments = await Payment.find({ apartment: { $in: apartments.map(apartment => apartment._id) }, year, month }).lean();
       const paymentMap = payments.reduce((map, payment) => {
         map[payment.apartment.toString()] = payment;
         return map;
-      }, {});
+      }, {}); 
 
       const apartmentsStatus = apartments.map(apartment => ({
         ...apartment,
